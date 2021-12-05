@@ -18,7 +18,7 @@ class RandomController() {
 
     init {
         retrofit = Retrofit.Builder()
-            .baseUrl("https://api.openweathermap.org/")
+            .baseUrl("https://random-data-api.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
@@ -42,7 +42,6 @@ class RandomController() {
                 if (response.code() >= 300) {
                     onAPIFailure(response.code());
                 }
-
                 addressCallResult = response.body()
             }
         })

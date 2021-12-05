@@ -2,6 +2,7 @@ package com.hayeseve.randomapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.hayeseve.randomapp.controller.RandomController
 import com.hayeseve.randomapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -12,5 +13,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val randomController = RandomController(this)
+
+        randomController.getSingleRandomAddress()
     }
 }
