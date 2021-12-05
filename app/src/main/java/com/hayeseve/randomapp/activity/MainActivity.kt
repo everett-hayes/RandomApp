@@ -38,11 +38,9 @@ class MainActivity : AppCompatActivity() {
             val position = lw.getCheckedItemPosition()
 
             if (position >= 0) {
-                // launch new activity
                 when (items[position]) {
                     "Address" -> startActivity(Intent(this, RandomAddressActivity::class.java).putExtra("NEW", true));
                 }
-                // Toast.makeText(this, "Clicked on ${items[position]}", Toast.LENGTH_LONG).show()
             }
         }.setNegativeButton("Cancel") { dialog, which -> }
 
