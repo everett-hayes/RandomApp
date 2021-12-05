@@ -1,8 +1,10 @@
 package com.hayeseve.randomapp.activity
 
 import android.app.AlertDialog
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.hayeseve.randomapp.databinding.ActivityMainBinding
 import android.widget.Toast
 import android.widget.ListView
@@ -35,8 +37,12 @@ class MainActivity : AppCompatActivity() {
             val lw: ListView = (dialog as AlertDialog).listView
             val position = lw.getCheckedItemPosition()
 
-            if (position > 0) {
-                Toast.makeText(this, "Clicked on ${items[position]}", Toast.LENGTH_LONG).show()
+            if (position >= 0) {
+                // launch new activity
+                when (items[position]) {
+                    "Address" -> startActivity(Intent(this, RandomAddressActivity::class.java).putExtra("NEW", true));
+                }
+                // Toast.makeText(this, "Clicked on ${items[position]}", Toast.LENGTH_LONG).show()
             }
         }.setNegativeButton("Cancel") { dialog, which -> }
 
