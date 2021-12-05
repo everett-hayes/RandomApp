@@ -3,11 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center">
+    android:gravity="center"
+    android:background="@color/primary_white">
 
     <ImageView
         android:id="@+id/logo"
-        android:src="@drawable/ic_launcher_background"
+        android:src="@drawable/random_logo"
         android:layout_width="wrap_content"
         android:layout_height="match_parent">
     </ImageView>
