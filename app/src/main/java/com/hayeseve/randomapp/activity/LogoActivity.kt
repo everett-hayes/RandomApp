@@ -1,4 +1,4 @@
-package com.hayeseve.randomapp
+package com.hayeseve.randomapp.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,6 +6,7 @@ import android.os.Handler
 import android.os.SystemClock
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
+import com.hayeseve.randomapp.R
 import com.hayeseve.randomapp.databinding.ActivityLogoBinding
 
 class LogoActivity : AppCompatActivity() {

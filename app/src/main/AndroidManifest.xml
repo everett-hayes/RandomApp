@@ -12,14 +12,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RandomApp">
         <activity
-            android:name=".LogoActivity"
+            android:name=".activity.LogoActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"/>
+        <activity android:name=".activity.MainActivity"/>
     </application>
 
 </manifest>

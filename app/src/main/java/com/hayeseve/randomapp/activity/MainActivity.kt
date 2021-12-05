@@ -1,15 +1,10 @@
-package com.hayeseve.randomapp
+package com.hayeseve.randomapp.activity
 
 import android.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.EditText
-import android.widget.RadioGroup
 import com.hayeseve.randomapp.databinding.ActivityMainBinding
 import android.widget.Toast
-
-import android.content.DialogInterface
 import android.widget.ListView
 
 
