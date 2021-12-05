@@ -9,7 +9,7 @@ import com.hayeseve.randomapp.databinding.AdapterItemBinding
 class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
     val context: Context
-    var items = mutableListOf<Object>()
+    var items = mutableListOf<Any>()
 
     constructor(context: Context) : super() {
         this.context = context
@@ -29,8 +29,8 @@ class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
         holder.bind(currentItem)
     }
 
-    fun addItem(o: Object) {
-        items.add(o)
+    fun addItem(a: Any) {
+        items.add(a)
         notifyItemInserted(items.lastIndex)
     }
 
@@ -45,7 +45,7 @@ class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
     }
 
     inner class ViewHolder(val itemBinding: AdapterItemBinding) : RecyclerView.ViewHolder(itemBinding.root) {
-        fun bind(o: Object) {
+        fun bind(a: Any) {
             // fill this out
         }
     }
