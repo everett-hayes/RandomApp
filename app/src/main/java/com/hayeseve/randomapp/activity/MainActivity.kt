@@ -13,6 +13,7 @@ import com.hayeseve.randomapp.adapter.RecyclerAdapter
 import com.hayeseve.randomapp.model.RandomAddress
 import com.hayeseve.randomapp.model.RandomCrypto
 import com.hayeseve.randomapp.model.RandomDessert
+import com.hayeseve.randomapp.model.RandomHipster
 import com.hayeseve.randomapp.model.RandomUser.RandomUser
 
 
@@ -53,6 +54,7 @@ class MainActivity : AppCompatActivity() {
                     "User" -> goToUser(true, null)
                     "Crypto" -> goToCrypto(true, null)
                     "Dessert" -> goToDessert(true, null)
+                    "Hipster" -> goToHipster(true, null)
                 }
             }
         }.setNegativeButton("Cancel") { dialog, which -> }
@@ -169,6 +171,34 @@ class MainActivity : AppCompatActivity() {
             val createdDessert = intent?.getParcelableExtra<RandomDessert>("DES");
             if (createdDessert != null) {
                 adapter.addItem(createdDessert)
+            };
+        }
+    }
+
+    fun goToHipster(isNew : Boolean, hipster : RandomHipster?) {
+
+        if (isNew) {
+            // start the activity and grab result for adapter
+            val intent = Intent(this, RandomHipsterActivity::class.java);
+            intent.putExtra("NEW", true);
+            startHipsterForResult.launch(intent);
+        } else {
+            // get the existing address and pass to activity
+            val intent = Intent(this, RandomHipsterActivity::class.java);
+            intent.putExtra("NEW", false);
+            intent.putExtra("HIP", hipster);
+            startActivity(intent);
+        }
+    }
+
+    private val startHipsterForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            result: ActivityResult ->
+
+        if (result.resultCode == Activity.RESULT_OK) {
+            val intent = result.data
+            val createdHipster = intent?.getParcelableExtra<RandomHipster>("HIP");
+            if (createdHipster != null) {
+                adapter.addItem(createdHipster)
             };
         }
     }

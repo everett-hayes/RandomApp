@@ -10,6 +10,7 @@ import com.hayeseve.randomapp.databinding.AdapterItemBinding
 import com.hayeseve.randomapp.model.RandomAddress
 import com.hayeseve.randomapp.model.RandomCrypto
 import com.hayeseve.randomapp.model.RandomDessert
+import com.hayeseve.randomapp.model.RandomHipster
 import com.hayeseve.randomapp.model.RandomUser.RandomUser
 
 class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
@@ -40,6 +41,7 @@ class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
                 RandomUser::class -> (context as MainActivity).goToUser(false, currentItem as RandomUser);
                 RandomCrypto::class -> (context as MainActivity).goToCrypto(false, currentItem as RandomCrypto);
                 RandomDessert::class -> (context as MainActivity).goToDessert(false, currentItem as RandomDessert);
+                RandomHipster::class -> (context as MainActivity).goToHipster(false, currentItem as RandomHipster);
             }
         }
     }
@@ -82,6 +84,11 @@ class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
                     val dessert = a as RandomDessert
                     itemBinding.classType.setText("Random Dessert");
                     itemBinding.summary.setText(dessert.variety);
+                }
+                RandomHipster::class -> {
+                    val hipster = a as RandomHipster
+                    itemBinding.classType.setText("Random Hipster");
+                    itemBinding.summary.setText(hipster.word);
                 }
             }
         }

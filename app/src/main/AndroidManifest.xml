@@ -24,6 +24,7 @@
         <activity android:name=".activity.RandomUserActivity"/>
         <activity android:name=".activity.RandomCryptoActivity"/>
         <activity android:name=".activity.RandomDessertActivity"/>
+        <activity android:name=".activity.RandomHipsterActivity"/>
     </application>
 
 </manifest>
