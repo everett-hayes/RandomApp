@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.hayeseve.randomapp.databinding.ActivityUserBinding
+import com.hayeseve.randomapp.error.ErrorHandle
 import com.hayeseve.randomapp.model.RandomAddress
 import com.hayeseve.randomapp.model.RandomUser.RandomUser
 import com.hayeseve.randomapp.service.RandomService
@@ -57,11 +58,11 @@ class RandomUserActivity : AppCompatActivity() {
 
         randomCall.enqueue(object : Callback<RandomUser> {
             override fun onFailure(call: Call<RandomUser>, t: Throwable) {
-                // do something
+                ErrorHandle.handleError(this@RandomUserActivity, t.localizedMessage);
             }
             override fun onResponse(call: Call<RandomUser>, response: Response<RandomUser>) {
                 if (response.code() >= 300) {
-                    // do something
+                    ErrorHandle.handleAPIError(this@RandomUserActivity, response.code());
                 } else {
                     var userResult : RandomUser? = response.body()
                     if (userResult != null) {

@@ -10,6 +10,7 @@ import android.widget.ListView
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import com.hayeseve.randomapp.adapter.RecyclerAdapter
+import com.hayeseve.randomapp.error.ErrorHandle
 import com.hayeseve.randomapp.model.RandomAddress
 import com.hayeseve.randomapp.model.RandomUser.RandomUser
 

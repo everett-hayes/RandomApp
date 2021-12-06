@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.hayeseve.randomapp.databinding.ActivityAddressBinding
+import com.hayeseve.randomapp.error.ErrorHandle
 import com.hayeseve.randomapp.model.RandomAddress
 import com.hayeseve.randomapp.service.RandomService
 import retrofit2.Call
@@ -56,11 +57,11 @@ class RandomAddressActivity : AppCompatActivity() {
 
         randomCall.enqueue(object : Callback<RandomAddress> {
             override fun onFailure(call: Call<RandomAddress>, t: Throwable) {
-                // do something
+                ErrorHandle.handleError(this@RandomAddressActivity, t.localizedMessage);
             }
             override fun onResponse(call: Call<RandomAddress>, response: Response<RandomAddress>) {
                 if (response.code() >= 300) {
-                   // do something
+                    ErrorHandle.handleAPIError(this@RandomAddressActivity, response.code());
                 } else {
                     var addressResult : RandomAddress? = response.body()
                     if (addressResult != null) {
