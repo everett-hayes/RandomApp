@@ -33,7 +33,7 @@ class RandomAddressActivity : AppCompatActivity() {
         }
     }
 
-    fun bindAddress(address : RandomAddress, isNew : Boolean) {
+    private fun bindAddress(address : RandomAddress, isNew : Boolean) {
 
         if (isNew) {
             binding.saveButton.visibility = View.VISIBLE;
@@ -45,7 +45,7 @@ class RandomAddressActivity : AppCompatActivity() {
         binding.addressText.setText(address.fullAddress);
     }
 
-    fun callServiceForAddress() {
+    private fun callServiceForAddress() {
 
         val retrofit = Retrofit.Builder()
             .baseUrl("https://random-data-api.com/")
@@ -72,7 +72,7 @@ class RandomAddressActivity : AppCompatActivity() {
         })
     }
 
-    fun saveAddress(addressToSave : RandomAddress) {
+    private fun saveAddress(addressToSave : RandomAddress) {
         // send back so it can be added to adapter
         val intent = Intent(this, MainActivity::class.java).apply {
             putExtra("ADR", addressToSave)

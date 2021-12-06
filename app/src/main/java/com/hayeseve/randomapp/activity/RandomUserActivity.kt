@@ -7,7 +7,6 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.hayeseve.randomapp.databinding.ActivityUserBinding
 import com.hayeseve.randomapp.error.ErrorHandle
-import com.hayeseve.randomapp.model.RandomAddress
 import com.hayeseve.randomapp.model.RandomUser.RandomUser
 import com.hayeseve.randomapp.service.RandomService
 import retrofit2.Call
@@ -34,7 +33,7 @@ class RandomUserActivity : AppCompatActivity() {
         }
     }
 
-    fun bindUser(user : RandomUser, isNew : Boolean) {
+    private fun bindUser(user : RandomUser, isNew : Boolean) {
 
         if (isNew) {
             binding.saveButton.visibility = View.VISIBLE;
@@ -46,7 +45,7 @@ class RandomUserActivity : AppCompatActivity() {
         binding.userText.setText(user.username.toString())
     }
 
-    fun callServiceForUser() {
+    private fun callServiceForUser() {
 
         val retrofit = Retrofit.Builder()
             .baseUrl("https://random-data-api.com/")
@@ -73,7 +72,7 @@ class RandomUserActivity : AppCompatActivity() {
         })
     }
 
-    fun saveUser(userToSave : RandomUser) {
+    private fun saveUser(userToSave : RandomUser) {
         // send back so it can be added to adapter
         val intent = Intent(this, MainActivity::class.java).apply {
             putExtra("USR", userToSave)
