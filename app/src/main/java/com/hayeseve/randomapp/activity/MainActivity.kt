@@ -12,6 +12,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import com.hayeseve.randomapp.adapter.RecyclerAdapter
 import com.hayeseve.randomapp.model.RandomAddress
 import com.hayeseve.randomapp.model.RandomCrypto
+import com.hayeseve.randomapp.model.RandomDessert
 import com.hayeseve.randomapp.model.RandomUser.RandomUser
 
 
@@ -51,6 +52,7 @@ class MainActivity : AppCompatActivity() {
                     "Address" -> goToAddress(true, null)
                     "User" -> goToUser(true, null)
                     "Crypto" -> goToCrypto(true, null)
+                    "Dessert" -> goToDessert(true, null)
                 }
             }
         }.setNegativeButton("Cancel") { dialog, which -> }
@@ -139,6 +141,34 @@ class MainActivity : AppCompatActivity() {
             val createdCrypto = intent?.getParcelableExtra<RandomCrypto>("CRP");
             if (createdCrypto != null) {
                 adapter.addItem(createdCrypto)
+            };
+        }
+    }
+
+    fun goToDessert(isNew : Boolean, dessert : RandomDessert?) {
+
+        if (isNew) {
+            // start the activity and grab result for adapter
+            val intent = Intent(this, RandomDessertActivity::class.java);
+            intent.putExtra("NEW", true);
+            startDessertForResult.launch(intent);
+        } else {
+            // get the existing address and pass to activity
+            val intent = Intent(this, RandomDessertActivity::class.java);
+            intent.putExtra("NEW", false);
+            intent.putExtra("DES", dessert);
+            startActivity(intent);
+        }
+    }
+
+    private val startDessertForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            result: ActivityResult ->
+
+        if (result.resultCode == Activity.RESULT_OK) {
+            val intent = result.data
+            val createdDessert = intent?.getParcelableExtra<RandomDessert>("DES");
+            if (createdDessert != null) {
+                adapter.addItem(createdDessert)
             };
         }
     }

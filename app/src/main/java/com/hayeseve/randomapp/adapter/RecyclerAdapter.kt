@@ -1,6 +1,7 @@
 package com.hayeseve.randomapp.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -8,6 +9,7 @@ import com.hayeseve.randomapp.activity.MainActivity
 import com.hayeseve.randomapp.databinding.AdapterItemBinding
 import com.hayeseve.randomapp.model.RandomAddress
 import com.hayeseve.randomapp.model.RandomCrypto
+import com.hayeseve.randomapp.model.RandomDessert
 import com.hayeseve.randomapp.model.RandomUser.RandomUser
 
 class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
@@ -37,11 +39,13 @@ class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
                 RandomAddress::class -> (context as MainActivity).goToAddress(false, currentItem as RandomAddress);
                 RandomUser::class -> (context as MainActivity).goToUser(false, currentItem as RandomUser);
                 RandomCrypto::class -> (context as MainActivity).goToCrypto(false, currentItem as RandomCrypto);
+                RandomDessert::class -> (context as MainActivity).goToDessert(false, currentItem as RandomDessert);
             }
         }
     }
 
     fun addItem(a: Any) {
+        Log.d("debug", a::class.toString());
         items.add(a)
         notifyItemInserted(items.lastIndex)
     }
@@ -73,6 +77,11 @@ class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
                     val crypto = a as RandomCrypto
                     itemBinding.classType.setText("Random Crypto");
                     itemBinding.summary.setText("${crypto.sha1?.substring(0, 20)} ...");
+                }
+                RandomDessert::class -> {
+                    val dessert = a as RandomDessert
+                    itemBinding.classType.setText("Random Dessert");
+                    itemBinding.summary.setText(dessert.variety);
                 }
             }
         }
