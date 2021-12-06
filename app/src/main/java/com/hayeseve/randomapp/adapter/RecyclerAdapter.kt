@@ -56,14 +56,17 @@ class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
     inner class ViewHolder(val itemBinding: AdapterItemBinding) : RecyclerView.ViewHolder(itemBinding.root) {
         fun bind(a: Any) {
-            if (a is RandomAddress) {
-                val address = a as RandomAddress
-                itemBinding.classType.setText("Random Address");
-                itemBinding.summary.setText(address.streetAddress);
-            } else if (a is RandomUser) {
-                val user = a as RandomUser
-                itemBinding.classType.setText("Random User");
-                itemBinding.summary.setText(user.username);
+            when (a::class) {
+                RandomAddress::class -> {
+                    val address = a as RandomAddress
+                    itemBinding.classType.setText("Random Address");
+                    itemBinding.summary.setText(address.streetAddress);
+                }
+                RandomUser::class -> {
+                    val user = a as RandomUser
+                    itemBinding.classType.setText("Random User");
+                    itemBinding.summary.setText(user.username);
+                }
             }
         }
     }
