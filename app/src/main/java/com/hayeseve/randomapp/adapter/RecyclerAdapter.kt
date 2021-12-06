@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hayeseve.randomapp.activity.MainActivity
 import com.hayeseve.randomapp.databinding.AdapterItemBinding
 import com.hayeseve.randomapp.model.RandomAddress
+import com.hayeseve.randomapp.model.RandomCrypto
 import com.hayeseve.randomapp.model.RandomUser.RandomUser
 
 class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
@@ -35,6 +36,7 @@ class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
             when (currentItem::class)  {
                 RandomAddress::class -> (context as MainActivity).goToAddress(false, currentItem as RandomAddress);
                 RandomUser::class -> (context as MainActivity).goToUser(false, currentItem as RandomUser);
+                RandomCrypto::class -> (context as MainActivity).goToCrypto(false, currentItem as RandomCrypto);
             }
         }
     }
@@ -66,6 +68,11 @@ class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
                     val user = a as RandomUser
                     itemBinding.classType.setText("Random User");
                     itemBinding.summary.setText(user.username);
+                }
+                RandomCrypto::class -> {
+                    val crypto = a as RandomCrypto
+                    itemBinding.classType.setText("Random Crypto");
+                    itemBinding.summary.setText("${crypto.sha1?.substring(0, 20)} ...");
                 }
             }
         }

@@ -11,6 +11,7 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import com.hayeseve.randomapp.adapter.RecyclerAdapter
 import com.hayeseve.randomapp.model.RandomAddress
+import com.hayeseve.randomapp.model.RandomCrypto
 import com.hayeseve.randomapp.model.RandomUser.RandomUser
 
 
@@ -49,6 +50,7 @@ class MainActivity : AppCompatActivity() {
                 when (items[position]) {
                     "Address" -> goToAddress(true, null)
                     "User" -> goToUser(true, null)
+                    "Crypto" -> goToCrypto(true, null)
                 }
             }
         }.setNegativeButton("Cancel") { dialog, which -> }
@@ -109,6 +111,34 @@ class MainActivity : AppCompatActivity() {
             val createdUser = intent?.getParcelableExtra<RandomUser>("USR");
             if (createdUser != null) {
                 adapter.addItem(createdUser)
+            };
+        }
+    }
+
+    fun goToCrypto(isNew : Boolean, crypto : RandomCrypto?) {
+
+        if (isNew) {
+            // start the activity and grab result for adapter
+            val intent = Intent(this, RandomCryptoActivity::class.java);
+            intent.putExtra("NEW", true);
+            startCryptoForResult.launch(intent);
+        } else {
+            // get the existing address and pass to activity
+            val intent = Intent(this, RandomCryptoActivity::class.java);
+            intent.putExtra("NEW", false);
+            intent.putExtra("CRP", crypto);
+            startActivity(intent);
+        }
+    }
+
+    private val startCryptoForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            result: ActivityResult ->
+
+        if (result.resultCode == Activity.RESULT_OK) {
+            val intent = result.data
+            val createdCrypto = intent?.getParcelableExtra<RandomCrypto>("CRP");
+            if (createdCrypto != null) {
+                adapter.addItem(createdCrypto)
             };
         }
     }
