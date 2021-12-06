@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.hayeseve.randomapp.activity.MainActivity
 import com.hayeseve.randomapp.databinding.AdapterItemBinding
 import com.hayeseve.randomapp.model.RandomAddress
+import com.hayeseve.randomapp.model.RandomUser.RandomUser
 
 class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
@@ -33,6 +34,7 @@ class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
         holder.itemBinding.btnView.setOnClickListener {
             when (currentItem::class)  {
                 RandomAddress::class -> (context as MainActivity).goToAddress(false, currentItem as RandomAddress);
+                RandomUser::class -> (context as MainActivity).goToUser(false, currentItem as RandomUser);
             }
         }
     }
@@ -54,11 +56,14 @@ class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
     inner class ViewHolder(val itemBinding: AdapterItemBinding) : RecyclerView.ViewHolder(itemBinding.root) {
         fun bind(a: Any) {
-
             if (a is RandomAddress) {
                 val address = a as RandomAddress
                 itemBinding.classType.setText("Random Address");
                 itemBinding.summary.setText(address.streetAddress);
+            } else if (a is RandomUser) {
+                val user = a as RandomUser
+                itemBinding.classType.setText("Random User");
+                itemBinding.summary.setText(user.username);
             }
         }
     }

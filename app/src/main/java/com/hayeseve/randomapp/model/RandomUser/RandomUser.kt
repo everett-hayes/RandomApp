@@ -1,7 +1,10 @@
 package com.hayeseve.randomapp.model.RandomUser
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class RandomUser (
     @SerializedName("id"                      ) var id                    : Int?          = null,
     @SerializedName("uid"                     ) var uid                   : String?       = null,
@@ -19,5 +22,4 @@ data class RandomUser (
     @SerializedName("address"                 ) var address               : Address?      = Address(),
     @SerializedName("credit_card"             ) var creditCard            : CreditCard?   = CreditCard(),
     @SerializedName("subscription"            ) var subscription          : Subscription? = Subscription()
-
-)
+) : Parcelable

@@ -11,6 +11,7 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import com.hayeseve.randomapp.adapter.RecyclerAdapter
 import com.hayeseve.randomapp.model.RandomAddress
+import com.hayeseve.randomapp.model.RandomUser.RandomUser
 
 
 class MainActivity : AppCompatActivity() {
@@ -47,6 +48,7 @@ class MainActivity : AppCompatActivity() {
             if (position >= 0) {
                 when (items[position]) {
                     "Address" -> goToAddress(true, null)
+                    "User" -> goToUser(true, null)
                 }
             }
         }.setNegativeButton("Cancel") { dialog, which -> }
@@ -61,7 +63,7 @@ class MainActivity : AppCompatActivity() {
             // start the activity and grab result for adapter
             val intent = Intent(this, RandomAddressActivity::class.java);
             intent.putExtra("NEW", true);
-            startAddForResult.launch(intent)
+            startAddressForResult.launch(intent)
         } else {
             // get the existing address and pass to activity
             val intent = Intent(this, RandomAddressActivity::class.java);
@@ -71,7 +73,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private val startAddForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+    private val startAddressForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             result: ActivityResult ->
 
         if (result.resultCode == Activity.RESULT_OK) {
@@ -79,6 +81,34 @@ class MainActivity : AppCompatActivity() {
             val createdAddress = intent?.getParcelableExtra<RandomAddress>("ADR");
             if (createdAddress != null) {
                 adapter.addItem(createdAddress)
+            };
+        }
+    }
+
+    fun goToUser(isNew : Boolean, user : RandomUser?) {
+
+        if (isNew) {
+            // start the activity and grab result for adapter
+            val intent = Intent(this, RandomUserActivity::class.java);
+            intent.putExtra("NEW", true);
+            startUserForResult.launch(intent)
+        } else {
+            // get the existing address and pass to activity
+            val intent = Intent(this, RandomUserActivity::class.java);
+            intent.putExtra("NEW", false);
+            intent.putExtra("USR", user);
+            startActivity(intent);
+        }
+    }
+
+    private val startUserForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            result: ActivityResult ->
+
+        if (result.resultCode == Activity.RESULT_OK) {
+            val intent = result.data
+            val createdUser = intent?.getParcelableExtra<RandomUser>("USR");
+            if (createdUser != null) {
+                adapter.addItem(createdUser)
             };
         }
     }
