@@ -1,9 +1,11 @@
 package com.hayeseve.randomapp.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class RandomAddress (
-
     @SerializedName("id"                ) var id               : Int?    = null,
     @SerializedName("uid"               ) var uid              : String? = null,
     @SerializedName("city"              ) var city             : String? = null,
@@ -27,4 +29,4 @@ data class RandomAddress (
     @SerializedName("latitude"          ) var latitude         : Double? = null,
     @SerializedName("longitude"         ) var longitude        : Double? = null,
     @SerializedName("full_address"      ) var fullAddress      : String? = null
-)
+) : Parcelable

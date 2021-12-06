@@ -4,7 +4,9 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.hayeseve.randomapp.activity.MainActivity
 import com.hayeseve.randomapp.databinding.AdapterItemBinding
+import com.hayeseve.randomapp.model.RandomAddress
 
 class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
@@ -27,6 +29,12 @@ class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem = items[holder.adapterPosition]
         holder.bind(currentItem)
+
+        holder.itemBinding.btnView.setOnClickListener {
+            when (currentItem::class)  {
+                RandomAddress::class -> (context as MainActivity).goToAddress(false, currentItem as RandomAddress);
+            }
+        }
     }
 
     fun addItem(a: Any) {
@@ -46,7 +54,12 @@ class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 
     inner class ViewHolder(val itemBinding: AdapterItemBinding) : RecyclerView.ViewHolder(itemBinding.root) {
         fun bind(a: Any) {
-            // fill this out
+
+            if (a is RandomAddress) {
+                val address = a as RandomAddress
+                itemBinding.classType.setText("Random Address");
+                itemBinding.summary.setText(address.streetAddress);
+            }
         }
     }
 }
