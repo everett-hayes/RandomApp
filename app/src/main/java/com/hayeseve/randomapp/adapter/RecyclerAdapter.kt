@@ -44,6 +44,10 @@ class RecyclerAdapter : RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
                 RandomHipster::class -> (context as MainActivity).goToHipster(false, currentItem as RandomHipster);
             }
         }
+
+        holder.itemBinding.btnDelete.setOnClickListener {
+            deleteItem(position);
+        }
     }
 
     fun addItem(a: Any) {
