@@ -4,9 +4,11 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.hayeseve.randomapp.databinding.ActivityHipsterBinding
 import com.hayeseve.randomapp.error.ErrorHandle
+import com.hayeseve.randomapp.model.RandomDessert
 import com.hayeseve.randomapp.model.RandomHipster
 import com.hayeseve.randomapp.service.RandomService
 import retrofit2.Call
@@ -14,6 +16,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import kotlin.reflect.full.memberProperties
 
 class RandomHipsterActivity : AppCompatActivity() {
 
@@ -42,7 +45,13 @@ class RandomHipsterActivity : AppCompatActivity() {
             }
         }
 
-        binding.hipsterText.setText(hipster.word);
+        for (prop in RandomHipster::class.memberProperties) {
+            if (prop.name != "id" && prop.name != "uid") {
+                val tv = TextView(this)
+                tv.setText("${prop.name} = ${prop.get(hipster)}")
+                binding.hipsterList.addView(tv);
+            }
+        }
     }
 
     private fun callServiceForHipster() {
