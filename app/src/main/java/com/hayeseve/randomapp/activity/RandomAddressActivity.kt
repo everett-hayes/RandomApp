@@ -33,12 +33,25 @@ class RandomAddressActivity : AppCompatActivity(), OnMapReadyCallback {
         binding = ActivityAddressBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val mapFragment = supportFragmentManager
+            .findFragmentById(R.id.map2) as SupportMapFragment
+        mapFragment.getMapAsync(this)
+
         if (intent.getBooleanExtra("NEW", false)) {
             // get my new one and potentially store it in adapter
             callServiceForAddress();
         } else {
             // get the old one I sent along
             intent.getParcelableExtra<RandomAddress>("ADR")?.let { bindAddress(it, false) }
+        }
+    }
+
+    override fun onMapReady(googleMap: GoogleMap) {
+        mMap = googleMap
+
+        if (!intent.getBooleanExtra("NEW", false)) {
+            val temp = intent.getParcelableExtra<RandomAddress>("ADR")
+            getLatLong(temp?.latitude, temp?.longitude);
         }
     }
 
@@ -52,10 +65,6 @@ class RandomAddressActivity : AppCompatActivity(), OnMapReadyCallback {
         }
 
         binding.addressText.setText(address.fullAddress);
-
-        val mapFragment = supportFragmentManager
-            .findFragmentById(R.id.map2) as SupportMapFragment
-        mapFragment.getMapAsync(this)
     }
 
     private fun callServiceForAddress() {
@@ -99,11 +108,5 @@ class RandomAddressActivity : AppCompatActivity(), OnMapReadyCallback {
         }
         setResult(Activity.RESULT_OK, intent);
         finish()
-    }
-
-    override fun onMapReady(googleMap: GoogleMap) {
-        mMap = googleMap
-
-        // Add a marker in Sydney and move the camera
     }
 }
