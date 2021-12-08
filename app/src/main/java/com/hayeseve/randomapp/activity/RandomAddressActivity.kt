@@ -2,6 +2,7 @@ package com.hayeseve.randomapp.activity
 
 import android.app.Activity
 import android.content.Intent
+import android.location.Geocoder
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -51,7 +52,7 @@ class RandomAddressActivity : AppCompatActivity(), OnMapReadyCallback {
 
         if (!intent.getBooleanExtra("NEW", false)) {
             val temp = intent.getParcelableExtra<RandomAddress>("ADR")
-            getLatLong(temp?.latitude, temp?.longitude);
+            getLatLong(temp?.latitude, temp?.longitude, temp?.fullAddress);
         }
     }
 
@@ -88,17 +89,30 @@ class RandomAddressActivity : AppCompatActivity(), OnMapReadyCallback {
                     addressResult = response.body()
                     if (addressResult != null) {
                         bindAddress(addressResult!!, true)
-                        getLatLong(addressResult!!.latitude, addressResult!!.longitude)
+                        getLatLong(addressResult!!.latitude, addressResult!!.longitude, addressResult!!.fullAddress)
                     }
                 }
             }
         })
     }
 
-    private fun getLatLong(lat: Double?, long: Double?) {
-        val location = LatLng(lat!!, long!!)
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(location))
-        mMap.addMarker(MarkerOptions().position(location).title(""))
+    private fun getLatLong(lat: Double?, long: Double?, addressStr: String?) {
+
+        val coder = Geocoder(this)
+
+        val addressCoded = coder.getFromLocationName(addressStr, 1);
+
+        // try to get an accurate lat and long / or use our random one
+        if (addressCoded != null && addressCoded.size > 0) {
+            val address = addressCoded[0]
+            val location = LatLng(address.latitude, address.longitude)
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(location))
+            mMap.addMarker(MarkerOptions().position(location).title(""))
+        } else {
+            val location = LatLng(lat!!, long!!)
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(location))
+            mMap.addMarker(MarkerOptions().position(location).title(""))
+        }
     }
 
     private fun saveAddress(addressToSave : RandomAddress) {
