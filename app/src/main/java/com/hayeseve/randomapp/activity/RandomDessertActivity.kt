@@ -2,10 +2,12 @@ package com.hayeseve.randomapp.activity
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.hayeseve.randomapp.R
 import com.hayeseve.randomapp.databinding.ActivityDessertBinding
 import com.hayeseve.randomapp.error.ErrorHandle
 import com.hayeseve.randomapp.model.RandomDessert
@@ -48,6 +50,7 @@ class RandomDessertActivity : AppCompatActivity() {
             if (prop.name != "id" && prop.name != "uid") {
                 val tv = TextView(this)
                 tv.setText("${prop.name} = ${prop.get(dessert)}")
+                tv.setTextColor(Color.parseColor("#FF000000"))
                 binding.dessertList.addView(tv);
             }
         }

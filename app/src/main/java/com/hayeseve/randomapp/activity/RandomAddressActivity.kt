@@ -26,6 +26,7 @@ class RandomAddressActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var binding: ActivityAddressBinding
     private lateinit var mMap: GoogleMap
+    private var addressResult : RandomAddress? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,13 +76,20 @@ class RandomAddressActivity : AppCompatActivity(), OnMapReadyCallback {
                 if (response.code() >= 300) {
                     ErrorHandle.handleAPIError(this@RandomAddressActivity, response.code());
                 } else {
-                    var addressResult : RandomAddress? = response.body()
+                    addressResult = response.body()
                     if (addressResult != null) {
-                        bindAddress(addressResult, true)
+                        bindAddress(addressResult!!, true)
+                        getLatLong(addressResult!!.latitude, addressResult!!.longitude)
                     }
                 }
             }
         })
+    }
+
+    private fun getLatLong(lat: Double?, long: Double?) {
+        val location = LatLng(lat!!, long!!)
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(location))
+        mMap.addMarker(MarkerOptions().position(location).title(""))
     }
 
     private fun saveAddress(addressToSave : RandomAddress) {
@@ -97,8 +105,5 @@ class RandomAddressActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap = googleMap
 
         // Add a marker in Sydney and move the camera
-        val sydney = LatLng(-34.0, 151.0)
-        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
     }
 }

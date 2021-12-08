@@ -2,6 +2,7 @@ package com.hayeseve.randomapp.activity
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -49,6 +50,7 @@ class RandomUserActivity : AppCompatActivity() {
             if (prop.name != "id" && prop.name != "uid") {
                 val tv = TextView(this)
                 tv.setText("${prop.name} = ${prop.get(user)}")
+                tv.setTextColor(Color.parseColor("#FF000000"))
                 binding.userList.addView(tv);
             }
         }
