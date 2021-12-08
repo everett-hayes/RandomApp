@@ -4,25 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.MainActivity"
     android:background="@color/primary_white"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".activity.MainActivity">
 
     <ScrollView
-        android:layout_marginTop="15dp"
         android:layout_width="match_parent"
-        android:layout_height="550dp">
-        <LinearLayout
+        android:layout_height="550dp"
+        android:layout_marginTop="15dp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_marginHorizontal="20px"
+            android:layout_marginVertical="30px"
+            android:paddingVertical="30px"
+            app:cardElevation="3dp"
+            app:cardCornerRadius="20px"
+            android:layout_marginBottom="10px"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/random_list"
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                android:scrollbars="vertical"
-                />
-        </LinearLayout>
+                android:layout_height="wrap_content">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/random_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbars="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
     </ScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -30,10 +42,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
-        android:src="@drawable/plus_solid"
         android:layout_margin="16dp"
         android:backgroundTint="@color/primary_red"
+        android:src="@drawable/plus_solid"
         app:maxImageSize="35dp"
-        app:tint="@color/primary_white"/>
+        app:tint="@color/primary_white" />
 
 </LinearLayout>
